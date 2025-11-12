@@ -1,0 +1,11 @@
+pyserini==0.44.0
+sentence-transformers==3.2.1
+faiss-cpu==1.8.0.post1
+numpy
+pandas
+scikit-learn
+ranx==0.4.0
+tqdm
+pydantic==2.9.2
+rich
+spacy

@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.DS_Store
+data/cache/
+data/indexes/faiss/*
+!data/indexes/.keep
+.pytest_cache/
