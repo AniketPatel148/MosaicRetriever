@@ -9,3 +9,4 @@ tqdm
 pydantic==2.9.2
 rich
 spacy
+ir-datasets==0.5.11

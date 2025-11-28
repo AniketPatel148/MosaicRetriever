@@ -15,6 +15,8 @@ from tqdm import tqdm
 class DenseConfig:
     model_name: str = "multi-qa-mpnet-base-dot-v1"
     batch_size: int = 64
+    # Force CPU by default to avoid occasional MPS/accelerator segfaults on macOS.
+    device: Optional[str] = "cpu"
 
 
 class DenseIndexer:
@@ -36,7 +38,7 @@ class DenseIndexer:
 
     def _load_model(self) -> SentenceTransformer:
         if self.model is None:
-            self.model = SentenceTransformer(self.config.model_name)
+            self.model = SentenceTransformer(self.config.model_name, device=self.config.device)
         return self.model
 
     @staticmethod
@@ -129,7 +131,7 @@ class DenseSearcher:
         self.config = config or DenseConfig()
         self.indexer = DenseIndexer(index_dir=self.index_dir, config=self.config)
         self.indexer.load()
-        self.model = SentenceTransformer(self.config.model_name)
+        self.model = SentenceTransformer(self.config.model_name, device=self.config.device)
 
     def search(self, query: str, k: int = 10) -> List[Tuple[str, float]]:
         if self.indexer.index is None:
